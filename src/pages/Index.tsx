@@ -28,10 +28,10 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-gray-900 mb-4">
-              Why Choose ServiceConnect?
+              Why Choose ConnectPro?
             </h2>
             <p className="text-lg text-gray-600 max-w-2xl mx-auto">
-              We make it easy to find reliable, professional services in your area
+              We make it easy to find reliable event and media professionals in your area
             </p>
           </div>
 
@@ -100,9 +100,9 @@ const Index = () => {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
             <div>
-              <h3 className="text-xl font-bold mb-4">ServiceConnect</h3>
+              <h3 className="text-xl font-bold mb-4">ConnectPro</h3>
               <p className="text-gray-400">
-                Connecting you with trusted local service providers.
+                Connecting you with trusted event and media professionals.
               </p>
             </div>
             <div>
@@ -131,7 +131,7 @@ const Index = () => {
             </div>
           </div>
           <div className="border-t border-gray-800 mt-8 pt-8 text-center text-gray-400">
-            <p>&copy; 2024 ServiceConnect. All rights reserved.</p>
+            <p>&copy; 2024 ConnectPro. All rights reserved.</p>
           </div>
         </div>
       </footer>

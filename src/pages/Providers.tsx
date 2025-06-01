@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Search, Filter, MapPin } from 'lucide-react';
 import { Input } from '@/components/ui/input';
@@ -21,61 +20,71 @@ const Providers = () => {
   const providers = [
     {
       _id: '1',
-      name: 'Mike Johnson',
-      category: 'Home Services',
-      description: 'Professional house cleaning and maintenance services. Over 10 years of experience with residential and commercial properties.',
-      rating: 4.8,
-      reviewCount: 124,
+      name: 'Sarah Photography',
+      category: 'Photographers',
+      description: 'Professional wedding and event photographer with 8+ years experience. Specializing in candid moments and artistic portraits.',
+      rating: 4.9,
+      reviewCount: 127,
       location: 'Downtown',
       image: '/placeholder.svg',
       isVerified: true,
       responseTime: '2 hours',
       phone: '(555) 123-4567',
-      email: 'mike@example.com'
+      email: 'sarah@photography.com'
     },
     {
       _id: '2',
-      name: 'Sarah Martinez',
-      category: 'Beauty',
-      description: 'Licensed hair stylist specializing in cuts, coloring, and styling. Using premium products for the best results.',
-      rating: 4.9,
-      reviewCount: 89,
+      name: 'Elite Event Films',
+      category: 'Videographers',
+      description: 'Cinematic wedding and event videography. Creating beautiful memories with professional equipment and creative storytelling.',
+      rating: 4.8,
+      reviewCount: 94,
       location: 'Midtown',
       image: '/placeholder.svg',
       isVerified: true,
       responseTime: '1 hour',
       phone: '(555) 234-5678',
-      email: 'sarah@example.com'
+      email: 'contact@elitefilms.com'
     },
     {
       _id: '3',
-      name: 'Tech Solutions Pro',
-      category: 'Technology',
-      description: 'Computer repair, IT support, and web development services. Quick turnaround and competitive pricing.',
+      name: 'Gourmet Catering Co',
+      category: 'Catering',
+      description: 'Full-service catering for weddings, corporate events, and special occasions. Fresh, locally-sourced ingredients.',
       rating: 4.7,
       reviewCount: 156,
-      location: 'Tech District',
+      location: 'Food District',
       image: '/placeholder.svg',
       isVerified: true,
-      responseTime: '30 minutes',
+      responseTime: '4 hours',
       phone: '(555) 345-6789',
-      email: 'tech@example.com'
+      email: 'info@gourmetcatering.com'
+    },
+    {
+      _id: '4',
+      name: 'Perfect Day Events',
+      category: 'Event Organizers',
+      description: 'Complete event planning and coordination services. From intimate gatherings to large celebrations, we handle every detail.',
+      rating: 4.9,
+      reviewCount: 203,
+      location: 'City Center',
+      image: '/placeholder.svg',
+      isVerified: true,
+      responseTime: '3 hours',
+      phone: '(555) 456-7890',
+      email: 'hello@perfectdayevents.com'
     }
   ];
 
   const categories = [
     'All Categories',
-    'Home Services',
-    'Automotive',
-    'Handyman',
-    'Creative',
-    'Health & Wellness',
-    'Technology',
-    'Beauty',
-    'Events'
+    'Photographers',
+    'Videographers',
+    'Catering',
+    'Event Organizers'
   ];
 
-  const locations = ['All Locations', 'Downtown', 'Midtown', 'Tech District', 'Suburb'];
+  const locations = ['All Locations', 'Downtown', 'Midtown', 'Food District', 'City Center'];
 
   const filteredProviders = providers.filter(provider => {
     const matchesSearch = provider.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
@@ -114,7 +123,7 @@ const Providers = () => {
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-900 mb-4">Find Service Providers</h1>
           <p className="text-lg text-gray-600">
-            Discover verified professionals in your area
+            Discover verified event and media professionals in your area
           </p>
         </div>
 

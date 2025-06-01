@@ -10,12 +10,12 @@ const Hero = () => {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center">
           <h1 className="text-4xl md:text-6xl font-bold text-gray-900 mb-6">
-            Find Trusted Local
-            <span className="text-blue-600 block">Service Providers</span>
+            Find Professional
+            <span className="text-blue-600 block">Event & Media Services</span>
           </h1>
           <p className="text-xl text-gray-600 mb-8 max-w-3xl mx-auto">
-            Connect with verified professionals in your area. From home repairs to personal services, 
-            find the right expert for your needs.
+            Connect with verified photographers, videographers, caterers, and event organizers 
+            to make your special occasions unforgettable.
           </p>
 
           {/* Search Bar */}
@@ -40,7 +40,7 @@ const Hero = () => {
               <div className="bg-blue-100 p-3 rounded-full mb-4">
                 <Users className="h-8 w-8 text-blue-600" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900">500+</h3>
+              <h3 className="text-2xl font-bold text-gray-900">200+</h3>
               <p className="text-gray-600">Verified Providers</p>
             </div>
             <div className="flex flex-col items-center">
@@ -54,8 +54,8 @@ const Hero = () => {
               <div className="bg-blue-100 p-3 rounded-full mb-4">
                 <CheckCircle className="h-8 w-8 text-blue-600" />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900">10k+</h3>
-              <p className="text-gray-600">Completed Projects</p>
+              <h3 className="text-2xl font-bold text-gray-900">5k+</h3>
+              <p className="text-gray-600">Successful Events</p>
             </div>
           </div>
         </div>
