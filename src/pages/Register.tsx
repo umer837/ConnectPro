@@ -2,6 +2,8 @@
 import React from 'react';
 import { useToast } from '@/hooks/use-toast';
 import AuthForm from '@/components/AuthForm';
+import Navbar from '@/components/Navbar';
+import Footer from '@/components/Footer';
 
 const Register = () => {
   const { toast } = useToast();
@@ -19,7 +21,7 @@ const Register = () => {
       } else {
         toast({
           title: 'Registration successful!',
-          description: 'Welcome to ServiceConnect! You can now browse service providers.',
+          description: 'Welcome to ConnectPro! You can now browse service providers.',
         });
       }
       
@@ -27,7 +29,15 @@ const Register = () => {
     }, 1000);
   };
 
-  return <AuthForm type="register" onSubmit={handleRegister} />;
+  return (
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      <Navbar />
+      <div className="flex-grow">
+        <AuthForm type="register" onSubmit={handleRegister} />
+      </div>
+      <Footer />
+    </div>
+  );
 };
 
 export default Register;
