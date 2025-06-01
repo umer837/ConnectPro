@@ -108,25 +108,25 @@ const Index = () => {
             <div>
               <h4 className="font-semibold mb-4">For Clients</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white">Find Services</a></li>
-                <li><a href="#" className="hover:text-white">How It Works</a></li>
-                <li><a href="#" className="hover:text-white">Safety</a></li>
+                <li><a href="/providers" className="hover:text-white">Find Services</a></li>
+                <li><a href="/how-it-works" className="hover:text-white">How It Works</a></li>
+                <li><a href="/safety" className="hover:text-white">Safety</a></li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-4">For Providers</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white">Join as Provider</a></li>
-                <li><a href="#" className="hover:text-white">Provider Resources</a></li>
-                <li><a href="#" className="hover:text-white">Success Stories</a></li>
+                <li><a href="/register" className="hover:text-white">Join as Provider</a></li>
+                <li><a href="/how-it-works" className="hover:text-white">Provider Resources</a></li>
+                <li><a href="/team" className="hover:text-white">Success Stories</a></li>
               </ul>
             </div>
             <div>
               <h4 className="font-semibold mb-4">Support</h4>
               <ul className="space-y-2 text-gray-400">
-                <li><a href="#" className="hover:text-white">Help Center</a></li>
-                <li><a href="#" className="hover:text-white">Contact Us</a></li>
-                <li><a href="#" className="hover:text-white">Terms of Service</a></li>
+                <li><a href="/help" className="hover:text-white">Help Center</a></li>
+                <li><a href="/contact" className="hover:text-white">Contact Us</a></li>
+                <li><a href="/terms" className="hover:text-white">Terms of Service</a></li>
               </ul>
             </div>
           </div>

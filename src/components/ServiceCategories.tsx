@@ -8,25 +8,29 @@ const ServiceCategories = () => {
       name: 'Photographers',
       icon: Camera,
       description: 'Wedding, event, portrait photography',
-      color: 'bg-blue-100 text-blue-600'
+      color: 'bg-blue-100 text-blue-600',
+      href: '/providers?category=photographers'
     },
     {
       name: 'Videographers',
       icon: Video,
       description: 'Event filming, editing, production',
-      color: 'bg-green-100 text-green-600'
+      color: 'bg-green-100 text-green-600',
+      href: '/providers?category=videographers'
     },
     {
       name: 'Catering',
       icon: ChefHat,
       description: 'Event catering, meal planning',
-      color: 'bg-orange-100 text-orange-600'
+      color: 'bg-orange-100 text-orange-600',
+      href: '/providers?category=catering'
     },
     {
       name: 'Event Organizers',
       icon: Calendar,
       description: 'Wedding planning, event coordination',
-      color: 'bg-purple-100 text-purple-600'
+      color: 'bg-purple-100 text-purple-600',
+      href: '/providers?category=event-organizers'
     }
   ];
 
@@ -44,9 +48,10 @@ const ServiceCategories = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {categories.map((category, index) => (
-            <div
+            <a
               key={index}
-              className="group cursor-pointer bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
+              href={category.href}
+              className="group cursor-pointer bg-white border border-gray-200 rounded-lg p-6 hover:shadow-lg transition-all duration-300 hover:-translate-y-1 block"
             >
               <div className={`inline-flex p-3 rounded-lg ${category.color} mb-4`}>
                 <category.icon className="h-6 w-6" />
@@ -57,7 +62,7 @@ const ServiceCategories = () => {
               <p className="text-gray-600 text-sm">
                 {category.description}
               </p>
-            </div>
+            </a>
           ))}
         </div>
 
