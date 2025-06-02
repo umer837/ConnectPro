@@ -20,9 +20,11 @@ const Login = () => {
       
       // Redirect based on role
       if (formData.email === 'admin@connectpro.com') {
-        window.location.href = '/admin';
+        window.location.href = '/admin/dashboard';
+      } else if (formData.role === 'provider') {
+        window.location.href = '/provider/dashboard';
       } else {
-        window.location.href = '/';
+        window.location.href = '/client/dashboard';
       }
     }, 1000);
   };

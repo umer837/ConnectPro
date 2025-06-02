@@ -18,14 +18,16 @@ const Register = () => {
           title: 'Registration successful!',
           description: 'Your account has been created. Please wait for admin approval before your profile goes live.',
         });
+        // Redirect to provider dashboard (pending approval)
+        window.location.href = '/provider/dashboard';
       } else {
         toast({
           title: 'Registration successful!',
           description: 'Welcome to ConnectPro! You can now browse service providers.',
         });
+        // Redirect to client dashboard
+        window.location.href = '/client/dashboard';
       }
-      
-      window.location.href = '/';
     }, 1000);
   };
 
