@@ -1,8 +1,8 @@
-
 import React, { useState } from 'react';
 import { Search, Star, Calendar, User, Filter, MapPin, Phone, Mail } from 'lucide-react';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import PortfolioModal from '@/components/PortfolioModal';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
@@ -12,6 +12,20 @@ import { Badge } from '@/components/ui/badge';
 const ClientDashboard = () => {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedCategory, setSelectedCategory] = useState('all');
+  const [portfolioModal, setPortfolioModal] = useState<{isOpen: boolean, providerName: string, images: string[]}>({
+    isOpen: false,
+    providerName: '',
+    images: []
+  });
+
+  const mockUser = {
+    name: 'John Client',
+    role: 'client' as const
+  };
+
+  const handleLogout = () => {
+    window.location.href = '/';
+  };
 
   const mockServices = [
     {
@@ -65,9 +79,17 @@ const ClientDashboard = () => {
     return matchesSearch && matchesCategory;
   });
 
+  const openPortfolio = (providerName: string) => {
+    setPortfolioModal({
+      isOpen: true,
+      providerName,
+      images: []
+    });
+  };
+
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      <Navbar />
+      <Navbar user={mockUser} onLogout={handleLogout} />
       <div className="flex-grow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="mb-8">
@@ -173,7 +195,11 @@ const ClientDashboard = () => {
                       <Button className="flex-1 bg-blue-600 hover:bg-blue-700">
                         Contact Provider
                       </Button>
-                      <Button variant="outline" className="flex-1">
+                      <Button 
+                        variant="outline" 
+                        className="flex-1"
+                        onClick={() => openPortfolio(service.name)}
+                      >
                         View Portfolio
                       </Button>
                     </div>
@@ -217,6 +243,13 @@ const ClientDashboard = () => {
         </div>
       </div>
       <Footer />
+      
+      <PortfolioModal 
+        isOpen={portfolioModal.isOpen}
+        onClose={() => setPortfolioModal({isOpen: false, providerName: '', images: []})}
+        providerName={portfolioModal.providerName}
+        portfolioImages={portfolioModal.images}
+      />
     </div>
   );
 };

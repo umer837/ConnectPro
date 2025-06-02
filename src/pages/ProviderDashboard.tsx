@@ -1,4 +1,3 @@
-
 import React, { useState } from 'react';
 import { Plus, Edit, Star, DollarSign, Calendar, Upload, Trash2, Eye, Camera } from 'lucide-react';
 import Navbar from '@/components/Navbar';
@@ -23,6 +22,15 @@ const ProviderDashboard = () => {
     location: '',
     duration: ''
   });
+
+  const mockUser = {
+    name: 'John Provider',
+    role: 'provider' as const
+  };
+
+  const handleLogout = () => {
+    window.location.href = '/';
+  };
 
   const [mockServices, setMockServices] = useState([
     {
@@ -58,7 +66,6 @@ const ProviderDashboard = () => {
     console.log('Service submitted:', serviceForm);
     
     if (editingService) {
-      // Update existing service
       setMockServices(prev => prev.map(service => 
         service.id === editingService.id 
           ? { ...service, ...serviceForm, id: editingService.id }
@@ -69,7 +76,6 @@ const ProviderDashboard = () => {
         description: 'Your service has been updated successfully.',
       });
     } else {
-      // Add new service
       const newService = {
         id: Date.now(),
         ...serviceForm,
@@ -120,7 +126,7 @@ const ProviderDashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      <Navbar />
+      <Navbar user={mockUser} onLogout={handleLogout} />
       <div className="flex-grow">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
           <div className="flex justify-between items-center mb-8">

@@ -11,19 +11,21 @@ const Login = () => {
   const handleLogin = (formData: any) => {
     console.log('Login attempt:', formData);
     
-    // Simulate login process
+    // Simulate login process with database check
     setTimeout(() => {
       toast({
         title: 'Login successful!',
         description: 'Welcome back to ConnectPro.',
       });
       
-      // Redirect based on role
+      // Simulate checking user role from database
       if (formData.email === 'admin@connectpro.com') {
         window.location.href = '/admin/dashboard';
-      } else if (formData.role === 'provider') {
+      } else if (formData.email.includes('provider')) {
+        // If email contains 'provider', route to provider dashboard
         window.location.href = '/provider/dashboard';
       } else {
+        // Default to client dashboard
         window.location.href = '/client/dashboard';
       }
     }, 1000);
