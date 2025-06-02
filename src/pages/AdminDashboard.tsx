@@ -7,9 +7,11 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Button } from '@/components/ui/button';
 import { Badge } from '@/components/ui/badge';
 import { useToast } from '@/hooks/use-toast';
+import ProviderDetailsModal from '@/components/ProviderDetailsModal';
 
 const AdminDashboard = () => {
   const { toast } = useToast();
+  const [selectedProvider, setSelectedProvider] = useState(null);
   const [pendingProviders, setPendingProviders] = useState([
     {
       id: 1,
@@ -51,6 +53,7 @@ const AdminDashboard = () => {
           : provider
       )
     );
+    setSelectedProvider(null);
     toast({
       title: 'Provider Approved',
       description: 'The service provider has been approved and can now offer services.',
@@ -65,11 +68,16 @@ const AdminDashboard = () => {
           : provider
       )
     );
+    setSelectedProvider(null);
     toast({
       title: 'Provider Rejected',
       description: 'The service provider application has been rejected.',
       variant: 'destructive',
     });
+  };
+
+  const handleViewDetails = (provider) => {
+    setSelectedProvider(provider);
   };
 
   const pendingCount = pendingProviders.filter(p => p.status === 'pending').length;
@@ -91,25 +99,25 @@ const AdminDashboard = () => {
 
           {/* Stats Cards */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <Card>
+            <Card className="bg-gradient-to-r from-yellow-500 to-yellow-600 text-white">
               <CardContent className="p-6 text-center">
-                <Clock className="h-8 w-8 text-yellow-600 mx-auto mb-2" />
+                <Clock className="h-8 w-8 mx-auto mb-2" />
                 <h3 className="text-lg font-semibold mb-1">Pending Reviews</h3>
-                <p className="text-2xl font-bold text-yellow-600">{pendingCount}</p>
+                <p className="text-2xl font-bold">{pendingCount}</p>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="bg-gradient-to-r from-green-500 to-green-600 text-white">
               <CardContent className="p-6 text-center">
-                <Check className="h-8 w-8 text-green-600 mx-auto mb-2" />
+                <Check className="h-8 w-8 mx-auto mb-2" />
                 <h3 className="text-lg font-semibold mb-1">Approved Providers</h3>
-                <p className="text-2xl font-bold text-green-600">{approvedCount}</p>
+                <p className="text-2xl font-bold">{approvedCount}</p>
               </CardContent>
             </Card>
-            <Card>
+            <Card className="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
               <CardContent className="p-6 text-center">
-                <Users className="h-8 w-8 text-blue-600 mx-auto mb-2" />
+                <Users className="h-8 w-8 mx-auto mb-2" />
                 <h3 className="text-lg font-semibold mb-1">Total Applications</h3>
-                <p className="text-2xl font-bold text-blue-600">{pendingProviders.length}</p>
+                <p className="text-2xl font-bold">{pendingProviders.length}</p>
               </CardContent>
             </Card>
           </div>
@@ -122,7 +130,7 @@ const AdminDashboard = () => {
             <CardContent>
               <div className="space-y-4">
                 {pendingProviders.map((provider) => (
-                  <div key={provider.id} className="border rounded-lg p-6 bg-white">
+                  <div key={provider.id} className="border rounded-lg p-6 bg-white hover:shadow-md transition-shadow">
                     <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
                       <div className="flex items-center space-x-4">
                         <img 
@@ -158,16 +166,18 @@ const AdminDashboard = () => {
                           {provider.status}
                         </Badge>
                         
+                        <Button
+                          size="sm"
+                          variant="outline"
+                          className="flex items-center"
+                          onClick={() => handleViewDetails(provider)}
+                        >
+                          <Eye className="h-4 w-4 mr-1" />
+                          View Details
+                        </Button>
+                        
                         {provider.status === 'pending' && (
                           <>
-                            <Button
-                              size="sm"
-                              variant="outline"
-                              className="flex items-center"
-                            >
-                              <Eye className="h-4 w-4 mr-1" />
-                              View Details
-                            </Button>
                             <Button
                               size="sm"
                               onClick={() => handleApprove(provider.id)}
@@ -197,6 +207,14 @@ const AdminDashboard = () => {
         </div>
       </div>
       <Footer />
+
+      {/* Provider Details Modal */}
+      <ProviderDetailsModal
+        provider={selectedProvider}
+        onClose={() => setSelectedProvider(null)}
+        onApprove={handleApprove}
+        onReject={handleReject}
+      />
     </div>
   );
 };
