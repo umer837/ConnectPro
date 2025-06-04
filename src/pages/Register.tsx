@@ -1,8 +1,10 @@
 
 import React, { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/hooks/useAuth';
 import AuthForm from '@/components/AuthForm';
 import ServiceProviderRegistrationForm from '@/components/ServiceProviderRegistrationForm';
+import OTPVerification from '@/components/OTPVerification';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import { Button } from '@/components/ui/button';
@@ -10,38 +12,74 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 
 const Register = () => {
   const { toast } = useToast();
+  const { register } = useAuth();
   const [userType, setUserType] = useState<'client' | 'provider' | null>(null);
+  const [step, setStep] = useState<'select' | 'register' | 'verify'>('select');
+  const [registrationEmail, setRegistrationEmail] = useState('');
+  const [loading, setLoading] = useState(false);
 
-  const handleClientRegister = (formData: any) => {
-    console.log('Client registration:', formData);
-    
-    // Simulate saving to database
-    setTimeout(() => {
+  const handleClientRegister = async (formData: any) => {
+    setLoading(true);
+    try {
+      await register({
+        ...formData,
+        role: 'client'
+      });
+      
+      setRegistrationEmail(formData.email);
+      setStep('verify');
+      
       toast({
         title: 'Registration successful!',
-        description: 'Your account has been created. Please login to continue.',
+        description: 'Please check your email for verification code.',
       });
-      // Redirect to login instead of dashboard
-      window.location.href = '/login';
-    }, 1000);
+    } catch (error: any) {
+      toast({
+        title: 'Registration failed',
+        description: error.response?.data?.message || 'Something went wrong',
+        variant: 'destructive',
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleProviderRegister = (formData: any) => {
-    console.log('Provider registration:', formData);
-    
-    // Simulate saving to database
-    setTimeout(() => {
+  const handleProviderRegister = async (formData: any) => {
+    setLoading(true);
+    try {
+      await register({
+        ...formData,
+        role: 'provider'
+      });
+      
+      setRegistrationEmail(formData.email);
+      setStep('verify');
+      
       toast({
         title: 'Registration successful!',
-        description: 'Your account has been created and is pending approval. Please login to check your status.',
+        description: 'Please check your email for verification code.',
       });
-      // Redirect to login instead of dashboard
-      window.location.href = '/login';
-    }, 1000);
+    } catch (error: any) {
+      toast({
+        title: 'Registration failed',
+        description: error.response?.data?.message || 'Something went wrong',
+        variant: 'destructive',
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleOTPVerified = () => {
+    toast({
+      title: 'Email verified!',
+      description: 'You can now login to your account.',
+    });
+    window.location.href = '/login';
   };
 
   // User type selection screen
-  if (!userType) {
+  if (step === 'select') {
     return (
       <div className="min-h-screen bg-gray-50 flex flex-col">
         <Navbar />
@@ -57,7 +95,10 @@ const Register = () => {
             </CardHeader>
             <CardContent className="space-y-4">
               <Button 
-                onClick={() => setUserType('client')}
+                onClick={() => {
+                  setUserType('client');
+                  setStep('register');
+                }}
                 className="w-full h-20 text-left bg-blue-50 hover:bg-blue-100 text-blue-700 border border-blue-200"
                 variant="outline"
               >
@@ -68,7 +109,10 @@ const Register = () => {
               </Button>
               
               <Button 
-                onClick={() => setUserType('provider')}
+                onClick={() => {
+                  setUserType('provider');
+                  setStep('register');
+                }}
                 className="w-full h-20 text-left bg-green-50 hover:bg-green-100 text-green-700 border border-green-200"
                 variant="outline"
               >
@@ -92,14 +136,32 @@ const Register = () => {
     );
   }
 
+  // OTP verification screen
+  if (step === 'verify') {
+    return (
+      <div className="min-h-screen bg-gray-50 flex flex-col">
+        <Navbar />
+        <div className="flex-grow flex items-center justify-center py-12 px-4 sm:px-6 lg:px-8">
+          <OTPVerification
+            email={registrationEmail}
+            onVerified={handleOTPVerified}
+            onBack={() => setStep('register')}
+          />
+        </div>
+        <Footer />
+      </div>
+    );
+  }
+
+  // Registration form screen
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <Navbar />
       <div className="flex-grow">
         {userType === 'client' ? (
-          <AuthForm type="register" onSubmit={handleClientRegister} />
+          <AuthForm type="register" onSubmit={handleClientRegister} loading={loading} />
         ) : (
-          <ServiceProviderRegistrationForm onSubmit={handleProviderRegister} />
+          <ServiceProviderRegistrationForm onSubmit={handleProviderRegister} loading={loading} />
         )}
       </div>
       <Footer />

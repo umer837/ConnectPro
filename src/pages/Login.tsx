@@ -1,41 +1,58 @@
 
-import React from 'react';
+import React, { useState } from 'react';
 import { useToast } from '@/hooks/use-toast';
+import { useAuth } from '@/hooks/useAuth';
 import AuthForm from '@/components/AuthForm';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 
 const Login = () => {
   const { toast } = useToast();
+  const { login } = useAuth();
+  const [loading, setLoading] = useState(false);
 
-  const handleLogin = (formData: any) => {
-    console.log('Login attempt:', formData);
-    
-    // Simulate login process with database check
-    setTimeout(() => {
+  const handleLogin = async (formData: any) => {
+    setLoading(true);
+    try {
+      const response = await login(formData.email, formData.password);
+      
       toast({
         title: 'Login successful!',
         description: 'Welcome back to ConnectPro.',
       });
-      
-      // Simulate checking user role from database
-      if (formData.email === 'admin@connectpro.com') {
+
+      // Redirect based on user role
+      if (response.user.role === 'admin') {
         window.location.href = '/admin/dashboard';
-      } else if (formData.email.includes('provider')) {
-        // If email contains 'provider', route to provider dashboard
+      } else if (response.user.role === 'provider') {
+        if (!response.user.isApproved) {
+          toast({
+            title: 'Account Pending',
+            description: 'Your provider account is pending approval.',
+            variant: 'destructive',
+          });
+          return;
+        }
         window.location.href = '/provider/dashboard';
       } else {
-        // Default to client dashboard
         window.location.href = '/client/dashboard';
       }
-    }, 1000);
+    } catch (error: any) {
+      toast({
+        title: 'Login failed',
+        description: error.response?.data?.message || 'Invalid credentials',
+        variant: 'destructive',
+      });
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
       <Navbar />
       <div className="flex-grow">
-        <AuthForm type="login" onSubmit={handleLogin} />
+        <AuthForm type="login" onSubmit={handleLogin} loading={loading} />
       </div>
       <Footer />
     </div>
